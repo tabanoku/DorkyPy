@@ -11,7 +11,7 @@ from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
 
 class DorkyPy(QMainWindow):
-    pathfolder = os.path.abspath(os.getcwd())
+    pathfolder = os.path.abspath(os.getcwd()) + "/"
 
     def __init__(self):
         super().__init__()
@@ -20,7 +20,9 @@ class DorkyPy(QMainWindow):
         self.searchApp.clicked.connect(self.fn_searchApp)
         self.folder_button.clicked.connect(self.fn_folder_select)
         self.google.toggled.connect(self.fn_radiobuttons)
-        
+        self.jsonRefreash()
+
+    def jsonRefreash(self):
         files = crud.Collections(self.pathfolder)
         self.files_combobox.clear()
         for file in files.files:
@@ -28,7 +30,7 @@ class DorkyPy(QMainWindow):
 
     def fn_folder_select(self):
         dialog = QFileDialog()
-        self.pathfolder = dialog.getExistingDirectory(None, 'Select folder')
+        self.pathfolder = dialog.getExistingDirectory(None, 'Select folder') + "/"
         files = crud.Collections(self.pathfolder)
         self.files_combobox.clear()
         for file in files.files:
@@ -55,10 +57,23 @@ class DorkyPy(QMainWindow):
                     self.resultsShow.append("<a href=\"" + result +"\">"+result[:40]+"...</a>")
 
                 if(self.files_combobox.currentText() != ""):
-                    print("json seleccionado")
-                else:
-                    print("ningun json seleccionado")
+                    self.collection = crud.Collection(self.pathfolder, self.files_combobox.currentText())
+                    self.documents = []
+                    for result in query.searchedAppQuery:
+                        self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result, self.collection.fullpath))
+                    for document in self.documents:
+                        self.collection.addDocument(document.document)
 
+                else:
+                    self.colName = 'collection.json'
+                    self.collection = crud.Collection(self.pathfolder, self.colName)
+                    self.collection.newJson()
+                    self.documents = []
+                    for result in query.searchedAppQuery:
+                        self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result, self.collection.fullpath))
+                    for document in self.documents:
+                        self.collection.addDocument(document.document)
+                self.jsonRefreash()
             else:
                 self.resultsShow.append("<a>No results found!!!</a>")
         else:
