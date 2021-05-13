@@ -1,21 +1,38 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+import os
+from os import pathconf
 import sys
 import core
 import crud
 from PyQt5 import uic
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
 
 class DorkyPy(QMainWindow):
+    pathfolder = os.path.abspath(os.getcwd())
 
     def __init__(self):
         super().__init__()
         uic.loadUi("gui.ui", self)
         self.searchGoogle.clicked.connect(self.fn_searchGoogle)
         self.searchApp.clicked.connect(self.fn_searchApp)
+        self.folder_button.clicked.connect(self.fn_folder_select)
         self.google.toggled.connect(self.fn_radiobuttons)
+        
+        files = crud.Collections(self.pathfolder)
+        self.files_combobox.clear()
+        for file in files.files:
+            self.files_combobox.addItem(file)
+
+    def fn_folder_select(self):
+        dialog = QFileDialog()
+        self.pathfolder = dialog.getExistingDirectory(None, 'Select folder')
+        files = crud.Collections(self.pathfolder)
+        self.files_combobox.clear()
+        for file in files.files:
+            self.files_combobox.addItem(file)
 
     # activate or deactivate search on google if database is checked
     def fn_radiobuttons(self):
@@ -29,13 +46,19 @@ class DorkyPy(QMainWindow):
         query = core.Query(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text())
         if(self.google.isChecked()):
             query.searchAppQuery()
-            query.searchGoogleQuery()
             self.resultsShow.setAcceptRichText(True)
             self.resultsShow.setOpenExternalLinks(True)
             self.resultsShow.clear()
+
             if (len(query.searchedAppQuery) > 0):
                 for result in query.searchedAppQuery:
                     self.resultsShow.append("<a href=\"" + result +"\">"+result[:40]+"...</a>")
+
+                if(self.files_combobox.currentText() != ""):
+                    print("json seleccionado")
+                else:
+                    print("ningun json seleccionado")
+
             else:
                 self.resultsShow.append("<a>No results found!!!</a>")
         else:

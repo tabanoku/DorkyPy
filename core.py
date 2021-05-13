@@ -65,8 +65,3 @@ class Query:
         if (len(self.searchedAppQuery) > 0):
             if (self.searchedAppQuery[len(self.searchedAppQuery)-1].startswith("/search")):
                 self.searchedAppQuery.pop(len(self.searchedAppQuery)-1)
-
-
-    
-
-
