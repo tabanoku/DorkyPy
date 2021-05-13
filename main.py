@@ -11,6 +11,7 @@ from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
 
 class DorkyPy(QMainWindow):
+    # class that contains the full App
     pathfolder = os.path.abspath(os.getcwd()) + "/"
 
     def __init__(self):
@@ -23,12 +24,14 @@ class DorkyPy(QMainWindow):
         self.jsonRefreash()
 
     def jsonRefreash(self):
+        # function to refreash de combo box of .json
         files = crud.Collections(self.pathfolder)
         self.files_combobox.clear()
         for file in files.files:
             self.files_combobox.addItem(file)
 
     def fn_folder_select(self):
+        # function on folder selected, detect .json and add them to combobox
         dialog = QFileDialog()
         self.pathfolder = dialog.getExistingDirectory(None, 'Select folder') + "/"
         files = crud.Collections(self.pathfolder)
@@ -36,15 +39,16 @@ class DorkyPy(QMainWindow):
         for file in files.files:
             self.files_combobox.addItem(file)
 
-    # activate or deactivate search on google if database is checked
+    
     def fn_radiobuttons(self):
+        # activate or deactivate search on google if database is checked
         if(self.google.isChecked()):
             self.searchGoogle.setEnabled(True)
         else:
             self.searchGoogle.setEnabled(False)
             
-    # Function on search on App clicked
     def fn_searchApp(self):
+        # Function on search on App clicked, generate query, show results and save the results on .json
         query = core.Query(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text())
         if(self.google.isChecked()):
             query.searchAppQuery()
@@ -80,8 +84,8 @@ class DorkyPy(QMainWindow):
             print("google = " + str(self.google.isChecked()))
             print("DDBB = " + str(self.database.isChecked()))
 
-    # Function on search on google clicked
     def fn_searchGoogle(self):
+        # Function on search on google clicked, open default browser with google url including dorks
         gQuery = core.Query(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text())
         gQuery.searchGoogleQuery()
         QDesktopServices.openUrl(QUrl(gQuery.searchedGoogleQuery))
