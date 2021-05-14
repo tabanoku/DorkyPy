@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import os
+from os import environ
 from os import pathconf
 import sys
 import core
@@ -8,12 +9,12 @@ import crud
 from PyQt5 import uic
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QWidget
 
 class DorkyPy(QMainWindow):
     # class that contains the full App
     pathfolder = os.path.abspath(os.getcwd()) + "/"
-
+    
     def __init__(self):
         super().__init__()
         uic.loadUi("gui.ui", self)
@@ -112,8 +113,29 @@ class DorkyPy(QMainWindow):
         gQuery.searchGoogleQuery()
         QDesktopServices.openUrl(QUrl(gQuery.searchedGoogleQuery))
 
+class login(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        uic.loadUi("login.ui", self)
+
+
+        
+
+
+def suppress_qt_warnings():
+    environ["QT_DEVICE_PIXEL_RATIO"] = "0"
+    environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+    environ["QT_SCREEN_SCALE_FACTORS"] = "1"
+    environ["QT_SCALE_FACTOR"] = "1"
+
+
+
 if __name__ == '__main__':
+    suppress_qt_warnings()
     app = QApplication([])
     GUI = DorkyPy()
+    GUI2 = login()
     GUI.show()
+    GUI2.show()
     sys.exit(app.exec_())
