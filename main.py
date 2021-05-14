@@ -21,7 +21,17 @@ class DorkyPy(QMainWindow):
         self.searchApp.clicked.connect(self.fn_searchApp)
         self.folder_button.clicked.connect(self.fn_folder_select)
         self.google.toggled.connect(self.fn_radiobuttons)
+        self.selectbutton.clicked.connect(self.checkifjson)
         self.jsonRefreash()
+
+
+    def checkifjson(self):
+        # function to check if json is selected
+        if ('.json' not in str(self.files_combobox.currentText())):
+            self.searchApp.setEnabled(False)
+        else:
+            self.searchApp.setEnabled(True)
+
 
     def jsonRefreash(self):
         # function to refreash de combo box of .json
@@ -29,6 +39,7 @@ class DorkyPy(QMainWindow):
         self.files_combobox.clear()
         for file in files.files:
             self.files_combobox.addItem(file)
+            
 
     def fn_folder_select(self):
         # function on folder selected, detect .json and add them to combobox
@@ -38,15 +49,38 @@ class DorkyPy(QMainWindow):
         self.files_combobox.clear()
         for file in files.files:
             self.files_combobox.addItem(file)
+        self.checkifjson()
 
-    
+
     def fn_radiobuttons(self):
-        # activate or deactivate search on google if database is checked
+        # activate or deactivate buttons in each case
         if(self.google.isChecked()):
             self.searchGoogle.setEnabled(True)
+            self.searchApp.setEnabled(True)
         else:
             self.searchGoogle.setEnabled(False)
-            
+            self.checkifjson()
+
+
+    def fn_writeResultDDBB(self, query):
+        # function to write the results on .json
+        if(self.files_combobox.currentText() != ""):
+            self.collection = crud.Collection(self.pathfolder, self.files_combobox.currentText())
+            self.documents = []
+            for result in query.searchedAppQuery:
+                self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result, self.collection.fullpath))
+            for document in self.documents:
+                self.collection.addDocument(document.document)
+        else:
+            self.colName = 'collection.json'
+            self.collection = crud.Collection(self.pathfolder, self.colName)
+            self.collection.newJson()
+            self.documents = []
+            for result in query.searchedAppQuery:
+                self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result, self.collection.fullpath))
+            for document in self.documents:
+                self.collection.addDocument(document.document)
+
     def fn_searchApp(self):
         # Function on search on App clicked, generate query, show results and save the results on .json
         query = core.Query(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text())
@@ -59,30 +93,18 @@ class DorkyPy(QMainWindow):
             if (len(query.searchedAppQuery) > 0):
                 for result in query.searchedAppQuery:
                     self.resultsShow.append("<a href=\"" + result +"\">"+result[:40]+"...</a>")
-
-                if(self.files_combobox.currentText() != ""):
-                    self.collection = crud.Collection(self.pathfolder, self.files_combobox.currentText())
-                    self.documents = []
-                    for result in query.searchedAppQuery:
-                        self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result, self.collection.fullpath))
-                    for document in self.documents:
-                        self.collection.addDocument(document.document)
-
-                else:
-                    self.colName = 'collection.json'
-                    self.collection = crud.Collection(self.pathfolder, self.colName)
-                    self.collection.newJson()
-                    self.documents = []
-                    for result in query.searchedAppQuery:
-                        self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result, self.collection.fullpath))
-                    for document in self.documents:
-                        self.collection.addDocument(document.document)
+                self.fn_writeResultDDBB(query)
                 self.jsonRefreash()
             else:
                 self.resultsShow.append("<a>No results found!!!</a>")
         else:
-            print("google = " + str(self.google.isChecked()))
-            print("DDBB = " + str(self.database.isChecked()))
+            self.collection = crud.Collection(self.pathfolder, self.files_combobox.currentText())
+            self.collection.generateResults(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text())
+            self.resultsShow.setAcceptRichText(True)
+            self.resultsShow.setOpenExternalLinks(True)
+            self.resultsShow.clear()
+            for result in self.collection.results:
+                    self.resultsShow.append("<a href=\"" + result +"\">"+result[:40]+"...</a>")
 
     def fn_searchGoogle(self):
         # Function on search on google clicked, open default browser with google url including dorks
