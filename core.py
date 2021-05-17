@@ -14,8 +14,9 @@ BWEXT = "ext%3A"
 BWSPACE = "+"
 
 class Query:
-    
-    # Generates Query object with parameters   
+    """
+    Generates Query object with parameters   
+    """
     def __init__(self, intitle = "", site = "", fileExt = "", dorks = ""):
         self.intitle = ""
         self.site = ""
@@ -31,8 +32,11 @@ class Query:
         if (dorks != ""):
             self.dorks = + " " + dorks
     
-    # Generates a valid query to Google
+    
     def searchGoogleQuery(self):
+        """
+        Generates a valid query to Google
+        """
         self.searchedGoogleQuery = BASEBW
         if (self.intitle != ""):
             self.searchedGoogleQuery += BWINTITLE + self.intitle
@@ -48,8 +52,11 @@ class Query:
             bwdorks = bwdorks[:-1]
             self.searchedGoogleQuery += BWSPACE + bwdorks
 
-    # Generates a valid query to GoogleSearch library
+    
     def searchAppQuery(self):
+        """
+        Generates a valid query to GoogleSearch library
+        """
         self.searchedQuery = ""
         if(self.intitle != ""):
             self.searchedQuery += INTITLEDORK + self.intitle + " "

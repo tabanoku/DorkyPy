@@ -3,8 +3,9 @@ from datetime import datetime
 
 
 class Collections:
-    # class to detect all .json files inside the selected folder
-
+    """
+    class to detect all .json files inside the selected folder
+    """
     def __init__(self, pathfolder):
         self.files = []
         os.chdir(pathfolder)
@@ -13,15 +14,18 @@ class Collections:
         self.files.append("")
 
 class Collection:
-    # class to generate and preform actions on selected .json file
-
+    """
+    class to generate and preform actions on selected .json file
+    """
     def __init__(self, path, collectionname):
         self.path = path
         self.collectionname = collectionname
         self.fullpath = self.path + self.collectionname
 
     def newJson(self):
-        # when no json selected, creates a new one
+        """
+        when no json selected, creates a new one
+        """
         self.fullpath = self.path+self.collectionname
         
         try:
@@ -41,7 +45,9 @@ class Collection:
 
 
     def addDocument(self, document):
-        # add the document to .json file
+        """
+        add the document to .json file
+        """
         with open(self.path+self.collectionname) as reader:
             data = json.load(reader)
             data.append(document)
@@ -49,7 +55,9 @@ class Collection:
             json.dump(data, writer, indent=4)
 
     def generateResults(self, topic, site, ext, dorks):
-        # preform a search on .json selected file
+        """
+        preform a search on .json selected file
+        """
         self.results = []
         with open(self.fullpath) as reader:
             data = json.load(reader)   
@@ -71,8 +79,9 @@ class Collection:
                     self.results.append(d['url'])
 
 class Document:
-    # a class to create the json document (type dict in Python3)
-
+    """
+    a class to create the json document (type dict in Python3)
+    """
     def __init__(self, topic, site, ext, dorks, result, fullpath):
         self.document = {
             "topic":topic,

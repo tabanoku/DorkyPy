@@ -9,13 +9,18 @@ import crud
 from PyQt5 import uic
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QWidget
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QWidget, QMessageBox, QPushButton
 
 class DorkyPy(QMainWindow):
-    # class that contains the full App
+    """
+    class that contains the full App
+    """
     pathfolder = os.path.abspath(os.getcwd()) + "/"
     
     def __init__(self):
+        """
+        Initialize the main application
+        """
         super().__init__()
         uic.loadUi("gui.ui", self)
         self.searchGoogle.clicked.connect(self.fn_searchGoogle)
@@ -27,7 +32,9 @@ class DorkyPy(QMainWindow):
 
 
     def checkifjson(self):
-        # function to check if json is selected
+        """
+        function to check if json is selected
+        """
         if ('.json' not in str(self.files_combobox.currentText())):
             self.searchApp.setEnabled(False)
         else:
@@ -35,7 +42,9 @@ class DorkyPy(QMainWindow):
 
 
     def jsonRefreash(self):
-        # function to refreash de combo box of .json
+        """
+        function to refreash de combo box of .json
+        """
         files = crud.Collections(self.pathfolder)
         self.files_combobox.clear()
         for file in files.files:
@@ -43,7 +52,9 @@ class DorkyPy(QMainWindow):
             
 
     def fn_folder_select(self):
-        # function on folder selected, detect .json and add them to combobox
+        """
+        function on folder selected, detect .json and add them to combobox
+        """
         dialog = QFileDialog()
         self.pathfolder = dialog.getExistingDirectory(None, 'Select folder') + "/"
         files = crud.Collections(self.pathfolder)
@@ -54,7 +65,9 @@ class DorkyPy(QMainWindow):
 
 
     def fn_radiobuttons(self):
-        # activate or deactivate buttons in each case
+        """
+        activate or deactivate buttons in each case
+        """
         if(self.google.isChecked()):
             self.searchGoogle.setEnabled(True)
             self.searchApp.setEnabled(True)
@@ -64,7 +77,9 @@ class DorkyPy(QMainWindow):
 
 
     def fn_writeResultDDBB(self, query):
-        # function to write the results on .json
+        """
+        function to write the results on .json
+        """
         if(self.files_combobox.currentText() != ""):
             self.collection = crud.Collection(self.pathfolder, self.files_combobox.currentText())
             self.documents = []
@@ -83,7 +98,9 @@ class DorkyPy(QMainWindow):
                 self.collection.addDocument(document.document)
 
     def fn_searchApp(self):
-        # Function on search on App clicked, generate query, show results and save the results on .json
+        """
+        Function on search on App clicked, generate query, show results and save the results on .json
+        """
         query = core.Query(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text())
         if(self.google.isChecked()):
             query.searchAppQuery()
@@ -108,22 +125,55 @@ class DorkyPy(QMainWindow):
                     self.resultsShow.append("<a href=\"" + result +"\">"+result[:40]+"...</a>")
 
     def fn_searchGoogle(self):
-        # Function on search on google clicked, open default browser with google url including dorks
+        """
+        Function on search on google clicked, open default browser with google url including dorks
+        """
         gQuery = core.Query(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text())
         gQuery.searchGoogleQuery()
         QDesktopServices.openUrl(QUrl(gQuery.searchedGoogleQuery))
 
 class login(QWidget):
+    """
+    Class for login
+    """
 
     def __init__(self):
+        """
+        Initialize the login
+        """
         super().__init__()
         uic.loadUi("login.ui", self)
+        self.localButton.clicked.connect(self.close)
+        self.loginButton.clicked.connect(self.fn_WIP)
 
+
+
+    
+
+
+
+        
+
+    def fn_WIP(self):
+        """
+        Show WIP message
+        """
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("Functionality work in progress")
+        msg.setWindowTitle("Important message!")
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec()
+
+        
 
         
 
 
 def suppress_qt_warnings():
+    """
+    Prevent warnings
+    """
     environ["QT_DEVICE_PIXEL_RATIO"] = "0"
     environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
     environ["QT_SCREEN_SCALE_FACTORS"] = "1"
