@@ -30,7 +30,7 @@ class Query:
         if (fileExt != ""):
             self.fileExt = fileExt
         if (dorks != ""):
-            self.dorks = + " " + dorks
+            self.dorks = dorks
     
     
     def searchGoogleQuery(self):
@@ -45,7 +45,7 @@ class Query:
         if (self.fileExt != ""):
             self.searchedGoogleQuery += BWSPACE + BWEXT + self.fileExt
         if (self.dorks != ""):
-            bwdorkstemp = self.dorks.splt(" ")
+            bwdorkstemp = self.dorks.split(' ')
             bwdorks = ""
             for dork in bwdorkstemp:
                 bwdorks += dork + BWSPACE
