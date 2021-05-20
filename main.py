@@ -30,7 +30,6 @@ class DorkyPy(QMainWindow):
         self.selectbutton.clicked.connect(self.checkifjson)
         self.jsonRefreash()
 
-
     def checkifjson(self):
         """
         function to check if json is selected
@@ -40,7 +39,6 @@ class DorkyPy(QMainWindow):
         else:
             self.searchApp.setEnabled(True)
 
-
     def jsonRefreash(self):
         """
         function to refreash de combo box of .json
@@ -48,8 +46,7 @@ class DorkyPy(QMainWindow):
         files = crud.Collections(self.pathfolder)
         self.files_combobox.clear()
         for file in files.files:
-            self.files_combobox.addItem(file)
-            
+            self.files_combobox.addItem(file)     
 
     def fn_folder_select(self):
         """
@@ -63,7 +60,6 @@ class DorkyPy(QMainWindow):
             self.files_combobox.addItem(file)
         self.checkifjson()
 
-
     def fn_radiobuttons(self):
         """
         activate or deactivate buttons in each case
@@ -74,7 +70,6 @@ class DorkyPy(QMainWindow):
         else:
             self.searchGoogle.setEnabled(False)
             self.checkifjson()
-
 
     def fn_writeResultDDBB(self, query):
         """
@@ -144,15 +139,7 @@ class login(QWidget):
         super().__init__()
         uic.loadUi("login.ui", self)
         self.localButton.clicked.connect(self.close)
-        self.loginButton.clicked.connect(self.fn_WIP)
-
-
-
-    
-
-
-
-        
+        self.loginButton.clicked.connect(self.fn_WIP)    
 
     def fn_WIP(self):
         """
@@ -165,11 +152,6 @@ class login(QWidget):
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec()
 
-        
-
-        
-
-
 def suppress_qt_warnings():
     """
     Prevent warnings
@@ -178,8 +160,6 @@ def suppress_qt_warnings():
     environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
     environ["QT_SCREEN_SCALE_FACTORS"] = "1"
     environ["QT_SCALE_FACTOR"] = "1"
-
-
 
 if __name__ == '__main__':
     suppress_qt_warnings()

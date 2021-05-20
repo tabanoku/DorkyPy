@@ -1,7 +1,7 @@
 try:
     from googlesearch import search
 except ImportError: 
-    print('No module named \'google\' found')
+    print('No module named \'googlesearch\' found')
 
 INTITLEDORK = "intitle:"
 SITEDORK = " site:"
@@ -69,6 +69,7 @@ class Query:
         self.searchedAppQuery = search(self.searchedQuery, num_results=24, lang="es")
 
         # googlesearch randomly gets search url as a result, this code fix that
+        
         if (len(self.searchedAppQuery) > 0):
             if (self.searchedAppQuery[len(self.searchedAppQuery)-1].startswith("/search")):
                 self.searchedAppQuery.pop(len(self.searchedAppQuery)-1)
