@@ -9,7 +9,7 @@ import crud
 from PyQt5 import uic
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QWidget, QMessageBox, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QWidget, QMessageBox
 
 class DorkyPy(QMainWindow):
     """
@@ -34,10 +34,14 @@ class DorkyPy(QMainWindow):
         """
         function to check if json is selected
         """
-        if ('.json' not in str(self.files_combobox.currentText())):
-            self.searchApp.setEnabled(False)
-        else:
+        if (self.google.isChecked()):
             self.searchApp.setEnabled(True)
+            self.searchGoogle.setEnabled(True)
+        else:     
+            if ('.json' not in str(self.files_combobox.currentText())):
+                self.searchApp.setEnabled(False)
+            else:
+                self.searchApp.setEnabled(True)
 
     def jsonRefreash(self):
         """
