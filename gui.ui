@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1080</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1080</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1080</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>DorkyPy</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../logo DorkyPy.png</normaloff>../logo DorkyPy.png</iconset>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>96</width>
+    <height>96</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="searchApp">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>640</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search on App</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="searchGoogle">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>640</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search on Google</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>40</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Topic to search (intitle:)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>40</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Site</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>140</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Results</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="topicSearch">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>70</y>
+      <width>351</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="site">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>70</y>
+      <width>201</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>120</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File extension</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="fileExt">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>150</y>
+      <width>201</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string/>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>csv</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>docx</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>jpeg</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>jpg</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>pdf</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>php</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>xls</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>xml</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="customDorks">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>230</y>
+      <width>201</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>200</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Custom dorks</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>280</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Where do you want to search?</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="google">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>310</y>
+      <width>112</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Google</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="database">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>310</y>
+      <width>112</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Database</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="resultsShow">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>170</y>
+      <width>381</width>
+      <height>431</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="files_combobox">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>470</y>
+      <width>201</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="file_label">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>360</y>
+      <width>271</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select a file to save/search the results:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="folder_button">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>390</y>
+      <width>101</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select folder</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>440</y>
+      <width>101</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File selected:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="selectbutton">
+    <property name="geometry">
+     <rect>
+      <x>970</x>
+      <y>470</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
