@@ -120,9 +120,11 @@ class DorkyPy(QMainWindow):
             self.resultsShow.setAcceptRichText(True)
             self.resultsShow.setOpenExternalLinks(True)
             self.resultsShow.clear()
-            for result in self.collection.results:
-                    self.resultsShow.append("<a href=\"" + result +"\">"+result[:40]+"...</a>")
-
+            if (len(self.collection.results) > 0):
+                for result in self.collection.results:
+                        self.resultsShow.append("<a href=\"" + result +"\">"+result[:40]+"...</a>")
+            else:
+                self.resultsShow.append("<a>No results found!!!</a>")
     def fn_searchGoogle(self):
         """
         Function on search on google clicked, open default browser with google url including dorks
