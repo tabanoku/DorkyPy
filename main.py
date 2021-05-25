@@ -83,7 +83,7 @@ class DorkyPy(QMainWindow):
             self.collection = crud.Collection(self.pathfolder, self.files_combobox.currentText())
             self.documents = []
             for result in query.searchedAppQuery:
-                self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result, self.collection.fullpath))
+                self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result))
             for document in self.documents:
                 self.collection.addDocument(document.document)
         else:
@@ -92,7 +92,7 @@ class DorkyPy(QMainWindow):
             self.collection.newJson()
             self.documents = []
             for result in query.searchedAppQuery:
-                self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result, self.collection.fullpath))
+                self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result))
             for document in self.documents:
                 self.collection.addDocument(document.document)
 

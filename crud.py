@@ -82,7 +82,7 @@ class Document:
     """
     a class to create the json document (type dict in Python3)
     """
-    def __init__(self, topic, site, ext, dorks, result, fullpath):
+    def __init__(self, topic, site, ext, dorks, result):
         self.document = {
             "topic":topic,
             "site":site,
