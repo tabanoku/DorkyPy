@@ -166,12 +166,27 @@
     </item>
     <item>
      <property name="text">
+      <string>htm</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>html</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
       <string>jpeg</string>
      </property>
     </item>
     <item>
      <property name="text">
       <string>jpg</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>json</string>
      </property>
     </item>
     <item>
@@ -186,7 +201,22 @@
     </item>
     <item>
      <property name="text">
+      <string>png</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>txt</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
       <string>xls</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>xlsx</string>
      </property>
     </item>
     <item>
