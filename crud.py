@@ -43,7 +43,6 @@ class Collection:
             f.write('[]')
             f.close()
 
-
     def addDocument(self, document):
         """
         add the document to .json file

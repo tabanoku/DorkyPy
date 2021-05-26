@@ -32,7 +32,6 @@ class Query:
         if (dorks != ""):
             self.dorks = dorks
     
-    
     def searchGoogleQuery(self):
         """
         Generates a valid query to Google
@@ -52,7 +51,6 @@ class Query:
             bwdorks = bwdorks[:-1]
             self.searchedGoogleQuery += BWSPACE + bwdorks
 
-    
     def searchAppQuery(self):
         """
         Generates a valid query to GoogleSearch library
