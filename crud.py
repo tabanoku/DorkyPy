@@ -6,7 +6,14 @@ class Collections:
     """
     class to detect all .json files inside the selected folder
     """
+
     def __init__(self, pathfolder):
+        '''
+        Initialize Colletions object
+
+        :param str pathfolder: Absolute path selected to search, create new and store .json files
+        '''
+
         self.files = []
         os.chdir(pathfolder)
         for file in glob.glob('*.json'):
@@ -17,15 +24,24 @@ class Collection:
     """
     class to generate and preform actions on selected .json file
     """
+
     def __init__(self, path, collectionname):
+        '''
+        Initialize Collection object
+
+        :param str path: Path of previous selected folder
+        :param str collectionname: Name of .json file
+        '''
+
         self.path = path
         self.collectionname = collectionname
         self.fullpath = self.path + self.collectionname
 
     def newJson(self):
         """
-        when no json selected, creates a new one
+        With fullpath try to create a new .json file, if it exists, creates a new one with day_month_year_hour_min_sec.json name
         """
+
         self.fullpath = self.path+self.collectionname
         
         try:
