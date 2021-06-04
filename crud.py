@@ -3,9 +3,9 @@ from datetime import datetime
 
 
 class Collections:
-    """
+    '''
     class to detect all .json files inside the selected folder
-    """
+    '''
 
     def __init__(self, pathfolder):
         '''
@@ -21,9 +21,9 @@ class Collections:
         self.files.append("")
 
 class Collection:
-    """
+    '''
     class to generate and preform actions on selected .json file
-    """
+    '''
 
     def __init__(self, path, collectionname):
         '''
@@ -38,9 +38,9 @@ class Collection:
         self.fullpath = self.path + self.collectionname
 
     def newJson(self):
-        """
+        '''
         With fullpath try to create a new .json file, if it exists, creates a new one with day_month_year_hour_min_sec.json name
-        """
+        '''
 
         self.fullpath = self.path+self.collectionname
         
@@ -60,9 +60,12 @@ class Collection:
             f.close()
 
     def addDocument(self, document):
-        """
-        add the document to .json file
-        """
+        '''
+        Open the .json file on path + collectionname and add the document
+
+        :param dict document: dict generated from search parameters and result url
+        '''
+
         with open(self.path+self.collectionname) as reader:
             data = json.load(reader)
             data.append(document)
@@ -70,9 +73,15 @@ class Collection:
             json.dump(data, writer, indent=4)
 
     def generateResults(self, topic, site, ext, dorks):
-        """
+        '''
         preform a search on .json selected file
-        """
+
+        :param str topic: Searched topic
+        :param str site: Searched site or domain
+        :param str ext: Searched file extension
+        :param str dorks: Extra dorks used
+        '''
+
         self.results = []
         with open(self.fullpath) as reader:
             data = json.load(reader)   
@@ -94,10 +103,21 @@ class Collection:
                     self.results.append(d['url'])
 
 class Document:
-    """
+    '''
     a class to create the json document (type dict in Python3)
-    """
+    '''
+
     def __init__(self, topic, site, ext, dorks, result):
+        '''
+        Initialize Document class to generate dict document variable with parameters and result URL
+
+        :param str topic: Searched topic
+        :param str site: Searched site or domain
+        :param str ext: Searched file extension
+        :param str dorks: Extra dorks used
+        :param str result: URL of result      
+        '''
+
         self.document = {
             "topic":topic,
             "site":site,
