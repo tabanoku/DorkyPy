@@ -2,7 +2,7 @@ try:
     from requests import get
     from bs4 import BeautifulSoup
 except ImportError: 
-    print('No module named \'googlesearch\' found')
+    print('Try installing requests and bs4 libraries')
 
 INTITLEDORK = "intitle:"
 SITEDORK = " site:"
@@ -63,13 +63,16 @@ class Query:
         def parse_results(raw_html):
             soup = BeautifulSoup(raw_html, 'html.parser')
             result_block = soup.find_all('div', attrs={'class': 'g'})
+
             for result in result_block:
                 link = result.find('a', href=True)
                 title = result.find('h3')
                 if link and title:
                     yield link['href']
+                    yield title[25:-5]
 
         html = fetch_results(term, num_results, lang)
+
         return list(parse_results(html))
     
     def searchGoogleQuery(self):
@@ -111,6 +114,8 @@ class Query:
         # googlesearch randomly gets search url as a result, this code fix that
         
         if (len(self.searchedAppQuery) > 0):
-            if (self.searchedAppQuery[len(self.searchedAppQuery)-1].startswith("/search")):
+            if (self.searchedAppQuery[len(self.searchedAppQuery)-2].startswith("/search")):
                 self.searchedAppQuery.pop(len(self.searchedAppQuery)-1)
+                self.searchedAppQuery.pop(len(self.searchedAppQuery)-1)
+
 
