@@ -1,5 +1,6 @@
 try:
-    from googlesearch import search
+    from requests import get
+    from bs4 import BeautifulSoup
 except ImportError: 
     print('No module named \'googlesearch\' found')
 
@@ -43,6 +44,34 @@ class Query:
         if (dorks != ""):
             self.dorks = dorks
     
+    def __scrapper(self, term, num_results = 24, lang='es'):
+
+        usr_agent = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/61.0.3163.100 Safari/537.36'}
+
+        def fetch_results(search_term, number_results, language_code):
+            escaped_search_term = search_term.replace(' ', '+')
+
+            google_url = 'https://www.google.com/search?q={}&num={}&hl={}'.format(escaped_search_term, number_results+1,
+                                                                                language_code)
+            response = get(google_url, headers=usr_agent)
+            response.raise_for_status()
+
+            return response.text
+
+        def parse_results(raw_html):
+            soup = BeautifulSoup(raw_html, 'html.parser')
+            result_block = soup.find_all('div', attrs={'class': 'g'})
+            for result in result_block:
+                link = result.find('a', href=True)
+                title = result.find('h3')
+                if link and title:
+                    yield link['href']
+
+        html = fetch_results(term, num_results, lang)
+        return list(parse_results(html))
+    
     def searchGoogleQuery(self):
         """
         Generates a valid query to use on default browser
@@ -77,10 +106,11 @@ class Query:
             self.searchedQuery += FILEEXTDORK + self.fileExt + " "
         if(self.dorks != ""):
             self.searchedQuery += self.dorks
-        self.searchedAppQuery = search(self.searchedQuery, num_results=24, lang="es")
+        self.searchedAppQuery = self.__scrapper(self.searchedQuery, num_results=24, lang="es")
 
         # googlesearch randomly gets search url as a result, this code fix that
         
         if (len(self.searchedAppQuery) > 0):
             if (self.searchedAppQuery[len(self.searchedAppQuery)-1].startswith("/search")):
                 self.searchedAppQuery.pop(len(self.searchedAppQuery)-1)
+
