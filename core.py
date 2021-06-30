@@ -69,7 +69,7 @@ class Query:
                 title = result.find('h3')
                 if link and title:
                     yield link['href']
-                    yield title[25:-5]
+                    yield title.string
 
         html = fetch_results(term, num_results, lang)
 
