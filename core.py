@@ -115,7 +115,7 @@ class Query:
         # googlesearch randomly gets search url as a result, this code fix that
         
         if (len(self.searchedAppQuery) > 0):
-            if (self.searchedAppQuery[len(self.searchedAppQuery)-2].startswith("/search")):
+            if (self.searchedAppQuery[len(self.searchedAppQuery)-1].startswith("/search")):
                 self.searchedAppQuery.pop(len(self.searchedAppQuery)-1)
                 self.searchedAppQuery.pop(len(self.searchedAppQuery)-1)
 
