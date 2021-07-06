@@ -117,7 +117,7 @@ class DorkyPy(QMainWindow):
                     if (not result.startswith("http")):
                         self.resultTitle = result
                     else:
-                        self.resultsShow.append("<a href=\"" + result + "\">" + self.resultTitle[:40] + "</a>")
+                        self.resultsShow.append("<a href=\"" + result + "\">" + self.resultTitle[:47] + "</a>")
                 self.fn_writeResultDDBB(query)
                 self.jsonRefreash()
             else:
@@ -133,7 +133,7 @@ class DorkyPy(QMainWindow):
                     if (not result.startswith("http")):
                         self.resultTitle = result
                     else:
-                        self.resultsShow.append("<a href=\"" + result + "\">" + self.resultTitle[:40] + "</a>")            
+                        self.resultsShow.append("<a href=\"" + result + "\">" + self.resultTitle[:47] + "</a>")            
             else:
                 self.resultsShow.append("<a>No results found!!!</a>")
                 
