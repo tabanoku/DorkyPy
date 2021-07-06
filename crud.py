@@ -100,6 +100,7 @@ class Collection:
                     if(dorks != d['dorks']):
                         flag = False
                 if (flag):
+                    self.results.append(d['title'])
                     self.results.append(d['url'])
 
 class Document:
@@ -107,7 +108,7 @@ class Document:
     a class to create the json document (type dict in Python3)
     '''
 
-    def __init__(self, topic, site, ext, dorks, result):
+    def __init__(self, topic, site, ext, dorks, title, url):
         '''
         Initialize Document class to generate dict document variable with parameters and result URL
 
@@ -115,7 +116,8 @@ class Document:
         :param str site: Searched site or domain
         :param str ext: Searched file extension
         :param str dorks: Extra dorks used
-        :param str result: URL of result      
+        :param str title: Title of result
+        :param str url: URL of result      
         '''
 
         self.document = {
@@ -123,5 +125,6 @@ class Document:
             "site":site,
             "fileext":ext,
             "dorks":dorks,
-            "url":result
+            "title":title,
+            "url":url
         }

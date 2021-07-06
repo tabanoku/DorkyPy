@@ -68,8 +68,9 @@ class Query:
                 link = result.find('a', href=True)
                 title = result.find('h3')
                 if link and title:
-                    yield link['href']
                     yield title.string
+                    yield link['href']
+
 
         html = fetch_results(term, num_results, lang)
 

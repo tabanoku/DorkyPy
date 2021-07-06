@@ -82,7 +82,10 @@ class DorkyPy(QMainWindow):
             self.collection = crud.Collection(self.pathfolder, self.files_combobox.currentText())
             self.documents = []
             for result in query.searchedAppQuery:
-                self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result))
+                if (not result.startswith("http")):
+                    self.resultTitle = result
+                else:
+                    self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), self.resultTitle, result))
             for document in self.documents:
                 self.collection.addDocument(document.document)
         else:
@@ -91,7 +94,10 @@ class DorkyPy(QMainWindow):
             self.collection.newJson()
             self.documents = []
             for result in query.searchedAppQuery:
-                self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), result))
+                if (not result.startswith("http")):
+                    self.resultTitle = result
+                else:
+                    self.documents.append(crud.Document(self.topicSearch.text(), self.site.text(), self.fileExt.currentText(), self.customDorks.text(), self.resultTitle, result))
             for document in self.documents:
                 self.collection.addDocument(document.document)
 
@@ -107,8 +113,11 @@ class DorkyPy(QMainWindow):
             self.resultsShow.clear()
 
             if (len(query.searchedAppQuery) > 0):
-                for result in query.searchedAppQuery:
-                    self.resultsShow.append("<a href=\"" + result +"\">"+result[:40]+"...</a>")
+                for result in query.searchedAppQuery: 
+                    if (not result.startswith("http")):
+                        self.resultTitle = result
+                    else:
+                        self.resultsShow.append("<a href=\"" + result + "\">" + self.resultTitle[:40] + "</a>")
                 self.fn_writeResultDDBB(query)
                 self.jsonRefreash()
             else:
@@ -121,7 +130,10 @@ class DorkyPy(QMainWindow):
             self.resultsShow.clear()
             if (len(self.collection.results) > 0):
                 for result in self.collection.results:
-                        self.resultsShow.append("<a href=\"" + result +"\">"+result[:40]+"...</a>")
+                    if (not result.startswith("http")):
+                        self.resultTitle = result
+                    else:
+                        self.resultsShow.append("<a href=\"" + result + "\">" + self.resultTitle[:40] + "</a>")            
             else:
                 self.resultsShow.append("<a>No results found!!!</a>")
                 
@@ -133,30 +145,30 @@ class DorkyPy(QMainWindow):
         gQuery.searchGoogleQuery()
         QDesktopServices.openUrl(QUrl(gQuery.searchedGoogleQuery))
 
-class login(QWidget):
-    """
-    Class for login
-    """
+# class login(QWidget):
+#     """
+#     Class for login
+#     """
 
-    def __init__(self):
-        """
-        Initialize the login
-        """
-        super().__init__()
-        uic.loadUi("login.ui", self)
-        self.localButton.clicked.connect(self.close)
-        self.loginButton.clicked.connect(self.fn_WIP)    
+#     def __init__(self):
+#         """
+#         Initialize the login
+#         """
+#         super().__init__()
+#         uic.loadUi("login.ui", self)
+#         self.localButton.clicked.connect(self.close)
+#         self.loginButton.clicked.connect(self.fn_WIP)    
 
-    def fn_WIP(self):
-        """
-        Show WIP message
-        """
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        msg.setText("Functionality work in progress")
-        msg.setWindowTitle("Important message!")
-        msg.setStandardButtons(QMessageBox.Ok)
-        msg.exec()
+#     def fn_WIP(self):
+#         """
+#         Show WIP message
+#         """
+#         msg = QMessageBox()
+#         msg.setIcon(QMessageBox.Information)
+#         msg.setText("Functionality work in progress")
+#         msg.setWindowTitle("Important message!")
+#         msg.setStandardButtons(QMessageBox.Ok)
+#         msg.exec()
 
 def suppress_qt_warnings():
     """
@@ -171,7 +183,7 @@ if __name__ == '__main__':
     suppress_qt_warnings()
     app = QApplication([])
     GUI = DorkyPy()
-    GUI2 = login()
+    #GUI2 = login()
     GUI.show()
-    GUI2.show()
+    #GUI2.show()
     sys.exit(app.exec_())
