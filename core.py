@@ -110,7 +110,7 @@ class Query:
             self.searchedQuery += FILEEXTDORK + self.fileExt + " "
         if(self.dorks != ""):
             self.searchedQuery += self.dorks
-        self.searchedAppQuery = self.__scrapper(self.searchedQuery, num_results=24, lang="es")
+        self.searchedAppQuery = self.__scrapper(self.searchedQuery, num_results=150, lang="es")
 
         # googlesearch randomly gets search url as a result, this code fix that
         
