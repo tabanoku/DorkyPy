@@ -53,9 +53,9 @@ class Collection:
         except:
             actualDate = datetime.now()
             actualDate = actualDate.strftime("%d_%m_%Y_%H_%M_%S")
-            fullnewpath = self.path + actualDate + self.collectionname
-            open(fullnewpath, 'x')
-            f = open(fullnewpath, 'w')
+            self.fullpath = self.path + actualDate + self.collectionname
+            open(self.fullpath, 'x')
+            f = open(self.fullpath, 'w')
             f.write('[]')
             f.close()
 
@@ -66,10 +66,10 @@ class Collection:
         :param dict document: dict generated from search parameters and result url
         '''
 
-        with open(self.path+self.collectionname) as reader:
+        with open(self.fullpath) as reader:
             data = json.load(reader)
             data.append(document)
-        with open(self.path+self.collectionname, 'w') as writer:
+        with open(self.fullpath, 'w') as writer:
             json.dump(data, writer, indent=4)
 
     def generateResults(self, topic, site, ext, dorks):
