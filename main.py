@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+
 import os
 from os import environ
 import sys
@@ -145,31 +146,6 @@ class DorkyPy(QMainWindow):
         gQuery.searchGoogleQuery()
         QDesktopServices.openUrl(QUrl(gQuery.searchedGoogleQuery))
 
-# class login(QWidget):
-#     """
-#     Class for login
-#     """
-
-#     def __init__(self):
-#         """
-#         Initialize the login
-#         """
-#         super().__init__()
-#         uic.loadUi("login.ui", self)
-#         self.localButton.clicked.connect(self.close)
-#         self.loginButton.clicked.connect(self.fn_WIP)    
-
-#     def fn_WIP(self):
-#         """
-#         Show WIP message
-#         """
-#         msg = QMessageBox()
-#         msg.setIcon(QMessageBox.Information)
-#         msg.setText("Functionality work in progress")
-#         msg.setWindowTitle("Important message!")
-#         msg.setStandardButtons(QMessageBox.Ok)
-#         msg.exec()
-
 def suppress_qt_warnings():
     """
     Prevent warnings
@@ -183,7 +159,5 @@ if __name__ == '__main__':
     suppress_qt_warnings()
     app = QApplication([])
     GUI = DorkyPy()
-    #GUI2 = login()
     GUI.show()
-    #GUI2.show()
     sys.exit(app.exec_())
